@@ -14,6 +14,7 @@ export class User extends Entity {
     constructor (user: UserEntity) {
         super(user)
         this.name     = user.name
+        this.email    = user.email
         this.password = user.password
         this.type     = user.type
     }
