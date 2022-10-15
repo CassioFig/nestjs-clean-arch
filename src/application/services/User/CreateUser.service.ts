@@ -1,14 +1,14 @@
 import { IAuthTokenService, IEncryptService, IServiceCommand } from "@domain/interfaces";
 import { IUserRepository } from "@domain/interfaces/repositories";
 import { UserInputModel } from "src/common/inputModels";
-import { UserViewModel } from "src/common/viewModels";
+import { LoginViewModel, UserViewModel } from "src/common/viewModels";
 import { User } from "@domain/entities";
 import { Inject } from "@nestjs/common";
 import { TUserToken } from "@domain/types";
 
 export namespace CreateUser {
     export type Input  = UserInputModel
-    export type Output = UserViewModel & { token: string }
+    export type Output = UserViewModel & LoginViewModel
 }
 export class CreateUser implements IServiceCommand<CreateUser.Input, CreateUser.Output> {
     constructor (

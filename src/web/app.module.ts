@@ -1,10 +1,13 @@
-import { InfrastructureModule, UserModule } from './modules';
+import { ApplicationModule, DomainModule, InfrastructureModule, } from './modules';
 import { Module } from '@nestjs/common';
+import { WebModule } from './modules/web.module';
 
 @Module({
   imports: [
-    UserModule,
-    InfrastructureModule
+    ApplicationModule,
+    InfrastructureModule,
+    DomainModule,
+    WebModule
   ],
   controllers: [],
   providers: [],

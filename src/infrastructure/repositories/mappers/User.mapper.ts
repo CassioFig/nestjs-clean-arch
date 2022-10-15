@@ -13,7 +13,7 @@ export class UserMapper extends Mapper<UserEntity, UserPersistence> {
         })
     }
     
-    toPersistence (domain: UserEntity): UserPersistence {
+    toPersistence (domain: UserEntity | Partial<UserEntity>): UserPersistence {
         return {
             id        : domain.id,
             name      : domain.name,

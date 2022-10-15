@@ -1,16 +1,17 @@
 import { BcryptEncryptService, JWTAuthTokenService } from "@infrastructure/services";
-import { Module } from "@nestjs/common";
+import { UserRepository } from "@infrastructure/repositories";
+import { Module, Provider } from "@nestjs/common";
+
+const providers: Provider[] = [
+    { provide: 'authTokenService', useClass: JWTAuthTokenService },
+    { provide: 'encryptService', useClass: BcryptEncryptService },
+    { provide: 'userRepository', useClass: UserRepository }
+]
 
 @Module({
     imports: [],
     controllers: [],
-    providers: [
-        { provide: 'authTokenService', useClass: JWTAuthTokenService },
-        { provide: 'encryptService', useClass: BcryptEncryptService },
-    ],
-    exports: [
-        { provide: 'authTokenService', useClass: JWTAuthTokenService },
-        { provide: 'encryptService', useClass: BcryptEncryptService },
-    ]
+    providers: [ ...providers ],
+    exports: [ ...providers ]
 })
 export class InfrastructureModule {}

@@ -18,15 +18,26 @@ export class UserRepository extends Repository implements IUserRepository {
         }
     }
 
-    findById(id: string): Promise<UserEntity> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<UserEntity> {
+        try {
+            const userSaved = await this.repository.findFirst({ where: { id } })
+            return userSaved ? this.userMapper.toDomain(userSaved) : null
+        } catch (error) {
+            throw new DatabaseError(error)
+        }
     }
     
     findAll(): Promise<UserEntity[]> {
         throw new Error("Method not implemented.");
     }
 
-    findOne(filter: Partial<UserEntity>): Promise<UserEntity> {
-        throw new Error("Method not implemented.");
+    async findOne(filter: Partial<UserEntity>): Promise<UserEntity> {
+        try {
+            const data = this.userMapper.toPersistence(filter)
+            const userSaved = await this.repository.findFirst({ where: { ...data } })
+            return userSaved ? this.userMapper.toDomain(userSaved) : null
+        } catch (error) {
+            throw new DatabaseError(error)
+        }
     }
 }
