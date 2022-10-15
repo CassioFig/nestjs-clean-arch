@@ -1,6 +1,6 @@
-import { UserTypes } from "@domain/enums"
-import { ApiProperty } from "@nestjs/swagger"
 import { IsEmail, IsIn, IsNotEmpty } from "class-validator"
+import { ApiProperty } from "@nestjs/swagger"
+import { UserTypes } from "@domain/enums"
 
 export class UserInputModel {
     @ApiProperty()
@@ -9,6 +9,7 @@ export class UserInputModel {
 
     @ApiProperty()
     @IsNotEmpty({ message: 'Email is required' })
+    @IsEmail({}, { message: 'Email is invalid' })
     email           : string
 
     @ApiProperty()

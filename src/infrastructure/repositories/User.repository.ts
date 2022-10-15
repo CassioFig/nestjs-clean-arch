@@ -18,23 +18,15 @@ export class UserRepository extends Repository implements IUserRepository {
         }
     }
 
-    update(user: UserEntity): Promise<UserEntity> {
-        throw new Error("Method not implemented.");
-    }
-
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
     findById(id: string): Promise<UserEntity> {
         throw new Error("Method not implemented.");
     }
+    
     findAll(): Promise<UserEntity[]> {
         throw new Error("Method not implemented.");
     }
+
     findOne(filter: Partial<UserEntity>): Promise<UserEntity> {
-        throw new Error("Method not implemented.");
-    }
-    findMany(filter: Partial<UserEntity>): Promise<UserEntity[]> {
         throw new Error("Method not implemented.");
     }
 }

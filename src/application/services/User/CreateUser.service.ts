@@ -1,17 +1,20 @@
+import { IAuthTokenService, IEncryptService, IServiceCommand } from "@domain/interfaces";
 import { IUserRepository } from "@domain/interfaces/repositories";
-import { IServiceCommand } from "@domain/interfaces";
-import { UserInputModel } from "@shared/inputModels";
-import { UserViewModel } from "@shared/viewModels";
+import { UserInputModel } from "src/common/inputModels";
+import { UserViewModel } from "src/common/viewModels";
 import { User } from "@domain/entities";
 import { Inject } from "@nestjs/common";
+import { TUserToken } from "@domain/types";
 
 export namespace CreateUser {
-    export type Input   = UserInputModel
-    export type Output  = UserViewModel
+    export type Input  = UserInputModel
+    export type Output = UserViewModel & { token: string }
 }
 export class CreateUser implements IServiceCommand<CreateUser.Input, CreateUser.Output> {
     constructor (
-        @Inject('userRepository') private readonly userRepository : IUserRepository
+        @Inject('userRepository') private readonly userRepository     : IUserRepository,
+        @Inject('encryptService') private readonly encryptService     : IEncryptService,
+        @Inject('authTokenService') private readonly authTokenService : IAuthTokenService
     ) {}
 
     async execute (input: CreateUser.Input): Promise<CreateUser.Output> {
@@ -23,7 +26,17 @@ export class CreateUser implements IServiceCommand<CreateUser.Input, CreateUser.
         })
 
         user.comparePassword(input.confirmPassword)
+        user.password = this.encryptService.encrypt(user.password)
+
         const userCreated = await this.userRepository.create(user)
+
+        const token = this.authTokenService.generate<TUserToken>({
+            info: {
+                userId : userCreated.id,
+                email  : userCreated.email,
+                type   : userCreated.type
+            }
+        })
         
         return {
             id        : userCreated.id,
@@ -31,7 +44,8 @@ export class CreateUser implements IServiceCommand<CreateUser.Input, CreateUser.
             email     : userCreated.email,
             type      : userCreated.type,
             createdAt : userCreated.createdAt,
-            updatedAt : userCreated.updatedAt
+            updatedAt : userCreated.updatedAt,
+            token     : token
         }
     }
 }

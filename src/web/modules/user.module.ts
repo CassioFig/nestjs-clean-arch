@@ -1,10 +1,13 @@
+import { InfrastructureModule } from "./infrastructure.module";
+import { UserRepository } from "@infrastructure/repositories";
 import { CreateUserController } from "@web/controllers";
 import { CreateUser } from "@application/services";
 import { Module } from '@nestjs/common';
-import { UserRepository } from "@infrastructure/repositories";
 
 @Module({
-    imports: [],
+    imports: [
+        InfrastructureModule
+    ],
     controllers: [
         CreateUserController
     ],

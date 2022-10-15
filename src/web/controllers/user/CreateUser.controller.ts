@@ -3,9 +3,9 @@ import { Controller, Post, Body, HttpException, HttpStatus, Inject } from "@nest
 import { IControllerCommand } from "@web/interfaces";
 import { IServiceCommand } from "@domain/interfaces";
 import { CreateUser } from "@application/services";
-import { UserInputModel } from "@shared/inputModels";
+import { UserInputModel } from "src/common/inputModels";
 import { ValidationError } from "@domain/errors";
-import { UserViewModel } from "@shared/viewModels";
+import { UserViewModel } from "src/common/viewModels";
 
 type HttpRequest  = CreateUser.Input
 type HttpResponse = CreateUser.Output
@@ -29,6 +29,7 @@ export class CreateUserController implements IControllerCommand<HttpRequest, Htt
             const userCreated = await this.createUser.execute(request)
             return userCreated
         } catch (error) {
+            console.log(error)
             if (error instanceof ValidationError) throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
             throw new HttpException('Error on user create', HttpStatus.INTERNAL_SERVER_ERROR)
         }
