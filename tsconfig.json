@@ -1,28 +1,41 @@
 {
   "compilerOptions": {
-    "module"                           : "commonjs",
-    "declaration"                      : true,
-    "removeComments"                   : true,
-    "emitDecoratorMetadata"            : true,
-    "experimentalDecorators"           : true,
-    "allowSyntheticDefaultImports"     : true,
-    "target"                           : "es2017",
-    "sourceMap"                        : true,
-    "outDir"                           : "./dist",
-    "baseUrl"                          : ".",
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
     "paths": {
-      "@application/*"    : ["./src/application/*"],
-      "@domain/*"         : ["./src/domain/*"],
-      "@infrastructure/*" : ["./src/infrastructure/*"],
-      "@shared/*"         : ["src/common/*"],
-      "@web/*"            : ["./src/web/*"]
+      "@application/*": [
+        "./src/application/*"
+      ],
+      "@domain/*": [
+        "./src/domain/*"
+      ],
+      "@infrastructure/*": [
+        "./src/infrastructure/*"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@web/*": [
+        "./src/web/*"
+      ],
+      "@main/*": [
+        "./src/main/*"
+      ]
     },
-    "incremental"                      : true,
-    "skipLibCheck"                     : true,
-    "strictNullChecks"                 : false,
-    "noImplicitAny"                    : false,
-    "strictBindCallApply"              : false,
-    "forceConsistentCasingInFileNames" : false,
-    "noFallthroughCasesInSwitch"       : false
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
   }
 }
