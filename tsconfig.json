@@ -28,6 +28,9 @@
       ],
       "@main/*": [
         "./src/main/*"
+      ],
+      "@test/*": [
+        "test/*"
       ]
     },
     "incremental": true,

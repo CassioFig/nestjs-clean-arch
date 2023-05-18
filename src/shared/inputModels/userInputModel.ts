@@ -2,6 +2,9 @@ import { UserTypes } from "@domain/enums";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UserInputModel {
+    @ApiProperty()
+    id?: string;
+
     @ApiProperty({ required: true})
     name: string;
     

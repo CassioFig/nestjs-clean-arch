@@ -2,6 +2,7 @@ import { EncryptService, UserRepository, Validator } from "@domain/interfaces";
 import { ValidationBuilder as Builder } from '@domain/validations';
 import { UserInputModel } from "@shared/inputModels";
 import { UserViewModel } from "@shared/viewModels";
+import { ValidationError } from "@domain/errors";
 import { UseCase } from "@application/use-case";
 import { UserTypes } from "@domain/enums";
 import { User } from "@domain/entities";
@@ -22,6 +23,9 @@ export class CreateUser extends UseCase {
             password: input.password,
             type: input.type
         })
+
+        const userExists = await this._userRepository.findByEmail(newUser.email);
+        if (userExists) throw new ValidationError('User already exists');
 
         newUser.comparePassword(input.confirmPassword);
         newUser.password = this._encryptService.encrypt(newUser.password);
